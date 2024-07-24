@@ -1,10 +1,11 @@
-Before starting the project, please activate the python environment with the command:
+# Before starting the project, please activate the python environment with the command:
 
+```sh
 source venv/bin/activate
 then execute the script with :
 python wumpus.py
 
-How the AI works:
+# How the AI works
     - When the game is started, the rules of the game are generated as a logical clause
     - For each box that is scanned, a clause is added to our SAT form based on the observation
     - To find the most optimal movement to not die, for each box around our
