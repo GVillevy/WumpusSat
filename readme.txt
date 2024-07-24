@@ -1,26 +1,19 @@
-Avant de lancer le projet, veuillez activer l'environnement python avec la commande :
+Before starting the project, please activate the python environment with the command:
+
 source venv/bin/activate
-puis éxécuter le code avec :
+then execute the script with :
 python wumpus.py
 
-Fonctionnement de l'IA :
-    - Au lancement de la partie, on génère les règles du jeu sous forme de clause logique
-    - À chaque case parcourue, on ajoute une clause dans notre formule SAT en fonction de l'observation
-    - Pour trouver le mouvement le plus optimal à faire pour ne pas mourir, pour chaque case autour de notre
-    joueur, on pose une clause de monstre sur cette même case, puis on essaye de trouver une solution à notre formule SAT avec
-    cette nouvelle clause. Si c'est satisfiable, cela veut dire qu'il y a une chance d'avoir la présence d'un monstre (ou d'un trou)
-    sur cette case. Si c'est UNSAT, cela veut dire qu'il n'y a aucune chance d'avoir un monstre ou un trou sur cette case,
-    on peut donc s'y déplacer.
-    - Il se pourrait qu'au bout d'un moment, notre IA se retrouve bloqué, car elle ne prend pas assez de risque ( par exemple, elle
-    reste bloquée entre plusieurs cases d'odeur). Pour contrer cela, à partir d'un certain temps (steps = 600), notre joueur prendra
-    des risques. Pour détecter si une case à proximité d'une case d'odeur à moins de chance d'être une case de monstre ou de trou,
-    alors on regarde les observations faites autour de cette même case, si on a qu'une seule case d'odeur (ou de vent), 
-    on prend le risque de s'y déplacer en l'ajoutant dans notre tableau de possibleMoves.
-    Théoriquement, notre joueur peut mourir uniquement après le step 800.
-
-Problématiques rencontrées :
-    - À chaque itération, lorsque j'ajoute une clause de monstre aux cases à proximités, je dois les supprimer juste après.
-    Je n'ai pas trouvé de solution dans la documentation pour supprimer la dernière clause ajoutée, alors je supprime mon
-    solver puis je le recrée après avec la fonction testSolver.
-    - J'ai également rencontré des problèmes pour utiliser le pysat classique du TD1 lors de mes addClauses, alors j'ai utilisé
-    la librairie pysat avec le solver Glucose3. Ça fonctionne avec cela, j'ai donc gardé celui-ci.
+How the AI works:
+    - When the game is started, the rules of the game are generated as a logical clause
+    - For each box that is scanned, a clause is added to our SAT form based on the observation
+    - To find the most optimal movement to not die, for each box around our
+    player, we put a monster clause on this same box, then we try to find a solution to our SAT formula with
+    this new clause. If it is satisfactory, it means that there is a chance of having the presence of a monster (or hole)
+    on this box. If it’s UNSAT, that means there’s no chance of a monster or a hole in this box,
+    So we can move there.
+    - It could happen that after a while, our AI is stuck because it doesn’t take enough risk (for example, it stays stuck between several hole boxes). 
+    To counter this, from a certain time (steps = 800), our player will take risks. 
+    To detect if a box near a smell box is less likely to be a monster or hole box, then we look at the observations made around this same box, 
+    if we have only one box of smell (or wind), we take the risk of moving it in our table of possible moves. 
+    Theoretically, our player can die only after step 800.
