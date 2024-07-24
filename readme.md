@@ -1,7 +1,7 @@
-### Before starting the project, please activate the python environment with the command:
+### Before starting the project, please activate your python environment and install the dependencies with the command:
 
 ```sh
-source venv/bin/activate
+pip install -r requirements.txt
 ```
 
 then execute the script with :
